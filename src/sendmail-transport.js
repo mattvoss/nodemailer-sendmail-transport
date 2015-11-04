@@ -75,7 +75,7 @@ SendmailTransport.prototype.send = function(mail, callback) {
     } else {
         if (envelope.replyTo) {
             from = envelope.replyTo;
-        } else if () {
+        } else if (envelope.from) {
             from = envelope.from;
         } 
         args = ['-i'].concat(from ? ['-f', from] : []).concat(envelope.to);
