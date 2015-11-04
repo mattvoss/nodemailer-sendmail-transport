@@ -62,6 +62,7 @@ SendmailTransport.prototype.send = function(mail, callback) {
 
     var envelope = mail.data.envelope || mail.message.getEnvelope(),
         args,
+        from,
         sendmail,
         cbCounter = 2,
         didCb,
@@ -72,7 +73,12 @@ SendmailTransport.prototype.send = function(mail, callback) {
         // force -i to keep single dots
         args = ['-i'].concat(this.args);
     } else {
-        args = ['-i'].concat(envelope.from ? ['-f', envelope.from] : []).concat(envelope.to);
+        if (envelope.replyTo) {
+            from = envelope.replyTo;
+        } else if () {
+            from = envelope.from;
+        } 
+        args = ['-i'].concat(from ? ['-f', from] : []).concat(envelope.to);
     }
 
     try {
